@@ -8,7 +8,10 @@
   </p>
   <div class="flex items-center gap-1">
     <img src="images/icon-comments.svg" />
-    <p class="font-semibold text-xs text-[#2A89EF] underline underline-offset-2 cursor-pointer">
+    <p
+      (click)="openCommentsModal()"
+      class="font-semibold text-xs text-[#2A89EF] underline underline-offset-2 cursor-pointer"
+    >
       {{ task.comments.length }} Comentário(s)
     </p>
     <p class="font-semibold text-xs text-[#2A89EF] underline underline-offset-2 cursor-pointer ml-auto" (click)="openEditTaskModal()">
