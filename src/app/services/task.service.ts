@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
+import { IComment } from '../interfaces/comment.interface';
 import { TaskStatusEnum } from '../enums/task-status.enum';
 import { ITaskFormControls } from '../interfaces/task.form-controls.interface';
 import { ITask } from '../interfaces/task.interface';
@@ -83,6 +84,28 @@ export class TaskService {
         name: newTaskName,
         description: newTaskDescription,
       };
+      currentTaskList.next(updatedTaskList);
+    }
+  }
+
+  updateTaskComments(
+    taskId: string,
+    taskCurrentStatus: TaskStatus,
+    newTaskComments: IComment[],
+  ) {
+    const currentTaskList = this.getTaskListByStatus(taskCurrentStatus);
+    const currentTaskIndex = currentTaskList.value.findIndex(
+      (task) => task.id === taskId,
+    );
+
+    if (currentTaskIndex > -1) {
+      const updatedTaskList = [...currentTaskList.value];
+
+      updatedTaskList[currentTaskIndex] = {
+        ...updatedTaskList[currentTaskIndex],
+        comments: [...newTaskComments],
+      };
+
       currentTaskList.next(updatedTaskList);
     }
   }
