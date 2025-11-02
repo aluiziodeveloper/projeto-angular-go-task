@@ -9,10 +9,10 @@
     />
   </div>
   <div class="p-4 border-t border-[#D1D5DB]">
-    <h1 class="font-semibold text-lg mb-4">Minha nova tarefa</h1>
+    <h1 class="font-semibold text-lg mb-4">{{ _task.name }}</h1>
     <p class="font-semibold text-sm mb-2">Descrição</p>
     <p class="font-normal text-base text-[#374151]">
-      Essa é a minha tarefa para criar um projeto Angular
+      {{ _task.description }}
     </p>
   </div>
   <div class="p-4">
@@ -62,6 +62,7 @@
               </p>
               <p
                 class="font-semibold text-xs underline underline-offset-2 cursor-pointer"
+                (click)="onRemoveModal(comment.id)"
               >
                 Apagar
               </p>
