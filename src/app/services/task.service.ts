@@ -21,13 +21,13 @@ export class TaskService {
   private doingTasks$ = new BehaviorSubject<ITask[]>([]);
   readonly doingTasks = this.todoTasks$
     .asObservable()
-    .pipe(map((tasks) => structuredClone(tasks)));;
+    .pipe(map((tasks) => structuredClone(tasks)));
 
   // Tarefas em "Concluído"
   private doneTasks$ = new BehaviorSubject<ITask[]>([]);
   readonly doneTasks = this.todoTasks$
     .asObservable()
-    .pipe(map((tasks) => structuredClone(tasks)));;
+    .pipe(map((tasks) => structuredClone(tasks)));
 
   addTask(taskInfos: ITaskFormControls) {
     const newTask: ITask = {
@@ -108,6 +108,15 @@ export class TaskService {
 
       currentTaskList.next(updatedTaskList);
     }
+  }
+
+  deleteTask(taskId: string, taskCurrentStatus: TaskStatus) {
+    const currentTaskList = this.getTaskListByStatus(taskCurrentStatus);
+
+    const newTaskList = currentTaskList.value.filter(
+      (task) => task.id !== taskId,
+    );
+    currentTaskList.next(newTaskList);
   }
 
   private getTaskListByStatus(TaskStatus: TaskStatus) {
